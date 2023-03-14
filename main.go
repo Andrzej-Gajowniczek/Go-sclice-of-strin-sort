@@ -1,8 +1,28 @@
 package main
 
 import (
+	"fmt"
+	"os"
 	"sort"
+	"text/tabwriter"
 )
+
+func ShowCoparison(pointerA []string, pointerB []string, comment string) {
+	horizontalDivider(comment)
+
+	w := new(tabwriter.Writer)
+	w.Init(os.Stdout, 24, 40, 0, ' ', 0)
+	defer w.Flush()
+	fmt.Fprintf(w, " %s\t%s\t%s\t\n", "index", "fridge", "fridge-copy")
+	fmt.Fprintf(w, " %s\t%s\t%s\t\n", "----", "----", "----")
+
+	for i, j := range pointerA {
+
+		fmt.Fprintf(w, " %v\t%v\t%v\t\n", i, j, pointerB[i])
+
+	}
+
+}
 
 func ShowWhatsInside(pointer []string, comment string) {
 	horizontalDivider(comment)
@@ -16,7 +36,7 @@ func horizontalDivider(paragraf string) {
 }
 
 func main() {
-	var fridge = []string{"butter", "milk", "becon", "sosages", "chees with holes", "red meat", "cream", "beef", "a dozen eggs"}
+	var fridge = []string{"butter", "milk", "becon", "sausages", "chees with holes", "red meat", "cream", "beef", "dozen eggs"}
 	ShowWhatsInside(fridge, "fridge")
 	//do a copy of fridge
 	copyOfFridge := make([]string, len(fridge))
@@ -26,9 +46,7 @@ func main() {
 
 	// sort fridge but don't sort copy!!!
 	sort.Strings(fridge)
-	ShowWhatsInside(fridge, "this is sorted fridge")
 
-	//Copy shouldn't be sorted because copy was made before sortin items
-
-	ShowWhatsInside(copyOfFridge, "Copy of the fridge made before sorting")
+	ShowCoparison(fridge, copyOfFridge, "The cmparison of the fridge and the copy")
+	horizontalDivider("")
 }
