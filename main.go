@@ -32,7 +32,20 @@ func ShowWhatsInside(pointer []string, comment string) {
 
 }
 func horizontalDivider(paragraf string) {
-	println("-------------------------------", paragraf, "-----------------------------------")
+	maxWidth := 80
+	texWidth := len(paragraf)
+	tailWidth := (maxWidth - texWidth) / 2
+	for i := 0; i < maxWidth; i++ {
+		if i < tailWidth || i > (tailWidth+texWidth) {
+			fmt.Print("-")
+
+		} else {
+			i = i + texWidth
+			fmt.Print(paragraf)
+		}
+	}
+
+	println("")
 }
 
 func main() {
